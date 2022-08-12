@@ -115,17 +115,12 @@ func (rpc *FlashbotsRPC) Call(method string, params ...interface{}) (json.RawMes
 	for k, v := range rpc.Headers {
 		req.Header.Add(k, v)
 	}
-	httpClient := &http.Client{
-		Timeout: rpc.Timeout,
-	}
 
-	response, err := httpClient.Do(req)
-	if response != nil {
-		defer response.Body.Close()
-	}
+	response, err := rpc.client.Do(req)
 	if err != nil {
 		return nil, err
 	}
+	defer response.Body.Close()
 
 	data, err := ioutil.ReadAll(response.Body)
 	if err != nil {
@@ -181,17 +176,12 @@ func (rpc *FlashbotsRPC) CallWithFlashbotsSignature(method string, privKey *ecds
 	for k, v := range rpc.Headers {
 		req.Header.Add(k, v)
 	}
-	httpClient := &http.Client{
-		Timeout: rpc.Timeout,
-	}
 
-	response, err := httpClient.Do(req)
-	if response != nil {
-		defer response.Body.Close()
-	}
+	response, err := rpc.client.Do(req)
 	if err != nil {
 		return nil, err
 	}
+	defer response.Body.Close()
 
 	data, err := ioutil.ReadAll(response.Body)
 	if err != nil {
@@ -329,10 +319,9 @@ func (rpc *FlashbotsRPC) EthGasPrice() (big.Int, error) {
 
 // EthAccounts returns a list of addresses owned by client.
 func (rpc *FlashbotsRPC) EthAccounts() ([]string, error) {
-	accounts := []string{}
-
-	err := rpc.call("eth_accounts", &accounts)
-	return accounts, err
+	accts := []string{}
+	err := rpc.call("eth_accounts", &accts)
+	return accts, err
 }
 
 // EthBlockNumber returns the number of most recent block.

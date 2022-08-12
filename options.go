@@ -7,6 +7,7 @@ import (
 
 type httpClient interface {
 	Post(url string, contentType string, body io.Reader) (*http.Response, error)
+	Do(*http.Request) (*http.Response, error)
 }
 
 type logger interface {
