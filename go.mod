@@ -3,7 +3,7 @@ module github.com/metachris/flashbotsrpc
 go 1.18
 
 require (
-	github.com/ethereum/go-ethereum v1.10.21
+	github.com/ethereum/go-ethereum v1.10.25
 	github.com/jarcoal/httpmock v1.0.8
 	github.com/pkg/errors v0.9.1
 	github.com/stretchr/testify v1.7.2
