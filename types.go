@@ -379,11 +379,12 @@ type FlashbotsCallBundleResponse struct {
 
 // sendBundle
 type FlashbotsSendBundleRequest struct {
-	Txs          []string  `json:"txs"`                         // Array[String], A list of signed transactions to execute in an atomic bundle
-	BlockNumber  string    `json:"blockNumber"`                 // String, a hex encoded block number for which this bundle is valid on
-	MinTimestamp *uint64   `json:"minTimestamp,omitempty"`      // (Optional) Number, the minimum timestamp for which this bundle is valid, in seconds since the unix epoch
-	MaxTimestamp *uint64   `json:"maxTimestamp,omitempty"`      // (Optional) Number, the maximum timestamp for which this bundle is valid, in seconds since the unix epoch
-	RevertingTxs *[]string `json:"revertingTxHashes,omitempty"` // (Optional) Array[String], A list of tx hashes that are allowed to revert
+	Txs             []string  `json:"txs"`                         // Array[String], A list of signed transactions to execute in an atomic bundle
+	BlockNumber     string    `json:"blockNumber"`                 // String, a hex encoded block number for which this bundle is valid on
+	MinTimestamp    *uint64   `json:"minTimestamp,omitempty"`      // (Optional) Number, the minimum timestamp for which this bundle is valid, in seconds since the unix epoch
+	MaxTimestamp    *uint64   `json:"maxTimestamp,omitempty"`      // (Optional) Number, the maximum timestamp for which this bundle is valid, in seconds since the unix epoch
+	RevertingTxs    *[]string `json:"revertingTxHashes,omitempty"` // (Optional) Array[String], A list of tx hashes that are allowed to revert
+	ReplacementUuid *string   `json:"replacementUuid,omitempty"`   // (Optional) String, UUID that can be used to cancel/replace this bundle
 }
 
 type FlashbotsGetBundleStatsParam struct {
