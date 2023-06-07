@@ -5,7 +5,7 @@ import (
 	"crypto/ecdsa"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"log"
 	"math/big"
 	"net/http"
@@ -122,7 +122,7 @@ func (rpc *FlashbotsRPC) Call(method string, params ...interface{}) (json.RawMes
 	}
 	defer response.Body.Close()
 
-	data, err := ioutil.ReadAll(response.Body)
+	data, err := io.ReadAll(response.Body)
 	if err != nil {
 		return nil, err
 	}
@@ -183,7 +183,7 @@ func (rpc *FlashbotsRPC) CallWithFlashbotsSignature(method string, privKey *ecds
 	}
 	defer response.Body.Close()
 
-	data, err := ioutil.ReadAll(response.Body)
+	data, err := io.ReadAll(response.Body)
 	if err != nil {
 		return nil, err
 	}
@@ -622,6 +622,16 @@ func (rpc *FlashbotsRPC) FlashbotsCallBundle(privKey *ecdsa.PrivateKey, param Fl
 // https://docs.flashbots.net/flashbots-auction/searchers/advanced/rpc-endpoint/#eth_sendbundle
 func (rpc *FlashbotsRPC) FlashbotsSendBundle(privKey *ecdsa.PrivateKey, param FlashbotsSendBundleRequest) (res FlashbotsSendBundleResponse, err error) {
 	rawMsg, err := rpc.CallWithFlashbotsSignature("eth_sendBundle", privKey, param)
+	if err != nil {
+		return res, err
+	}
+	err = json.Unmarshal(rawMsg, &res)
+	return res, err
+}
+
+// https://docs.flashbots.net/flashbots-auction/searchers/advanced/rpc-endpoint#eth_cancelbundle
+func (rpc *FlashbotsRPC) FlashbotsCancelBundle(privKey *ecdsa.PrivateKey, param FlashbotsCancelBundleRequest) (res FlashbotsCancelBundleResponse, err error) {
+	rawMsg, err := rpc.CallWithFlashbotsSignature("eth_cancelbundle", privKey, param)
 	if err != nil {
 		return res, err
 	}

@@ -387,6 +387,10 @@ type FlashbotsSendBundleRequest struct {
 	ReplacementUuid *string   `json:"replacementUuid,omitempty"`   // (Optional) String, UUID that can be used to cancel/replace this bundle
 }
 
+type FlashbotsCancelBundleRequest struct {
+	ReplacementUuid string `json:"replacementUuid"` // String, UUID that can be used to cancel/replace this bundle
+}
+
 type FlashbotsGetBundleStatsParam struct {
 	BlockNumber string `json:"blockNumber"` // String, a hex encoded block number for which this bundle is valid on
 	BundleHash  string `json:"bundleHash"`  // String, returned by the flashbots api when calling eth_sendBundle
@@ -403,6 +407,10 @@ type FlashbotsGetBundleStatsResponse struct {
 
 type FlashbotsSendBundleResponse struct {
 	BundleHash string `json:"bundleHash"`
+}
+
+type FlashbotsCancelBundleResponse struct {
+	Error string `json:"error"`
 }
 
 // sendPrivateTransaction
