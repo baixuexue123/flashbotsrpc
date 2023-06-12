@@ -631,7 +631,7 @@ func (rpc *FlashbotsRPC) FlashbotsSendBundle(privKey *ecdsa.PrivateKey, param Fl
 
 // https://docs.flashbots.net/flashbots-auction/searchers/advanced/rpc-endpoint#eth_cancelbundle
 func (rpc *FlashbotsRPC) FlashbotsCancelBundle(privKey *ecdsa.PrivateKey, param FlashbotsCancelBundleRequest) (res FlashbotsCancelBundleResponse, err error) {
-	rawMsg, err := rpc.CallWithFlashbotsSignature("eth_cancelbundle", privKey, param)
+	rawMsg, err := rpc.CallWithFlashbotsSignature("eth_cancelBundle", privKey, param)
 	if err != nil {
 		return res, err
 	}
