@@ -636,6 +636,9 @@ func (rpc *FlashbotsRPC) FlashbotsCancelBundle(privKey *ecdsa.PrivateKey, param 
 		return res, err
 	}
 	err = json.Unmarshal(rawMsg, &res)
+	if err != nil {
+		res.RawMsg = rawMsg
+	}
 	return res, err
 }
 

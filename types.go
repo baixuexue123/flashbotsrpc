@@ -410,7 +410,8 @@ type FlashbotsSendBundleResponse struct {
 }
 
 type FlashbotsCancelBundleResponse struct {
-	Error string `json:"error"`
+	Error  string `json:"error"`
+	RawMsg json.RawMessage
 }
 
 // sendPrivateTransaction
