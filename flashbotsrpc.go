@@ -640,8 +640,8 @@ func (rpc *FlashbotsRPC) FlashbotsSendBundle(privKey *ecdsa.PrivateKey, param Fl
 		return res, err
 	}
 	err = json.Unmarshal(rawMsg, &res)
-	if msg := string(rawMsg); len(msg) == 66 { // {"result": "BundleHash"}
-		res.BundleHash = msg
+	if len(rawMsg) == 68 { // {"result": "BundleHash"}
+		res.BundleHash = string(rawMsg[1:67])
 		err = nil
 	}
 	return res, err
