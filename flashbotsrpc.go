@@ -454,6 +454,14 @@ func (rpc *FlashbotsRPC) EthSendRawTransaction(data string) (string, error) {
 	return hash, err
 }
 
+// EthSendPrivateRawTransaction creates new message call transaction or a contract creation for signed transactions.
+func (rpc *FlashbotsRPC) EthSendPrivateRawTransaction(data string) (string, error) {
+	var hash string
+
+	err := rpc.call("eth_sendPrivateRawTransaction", &hash, data)
+	return hash, err
+}
+
 // EthCall executes a new message call immediately without creating a transaction on the block chain.
 func (rpc *FlashbotsRPC) EthCall(transaction T, tag string) (string, error) {
 	var data string
