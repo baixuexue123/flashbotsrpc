@@ -120,11 +120,8 @@ func (rpc *FlashbotsRPC) Call(method string, params ...interface{}) (json.RawMes
 	for k, v := range rpc.Headers {
 		req.Header.Add(k, v)
 	}
-	httpClient := &http.Client{
-		Timeout: rpc.Timeout,
-	}
 
-	response, err := httpClient.Do(req)
+	response, err := rpc.client.Do(req)
 	if response != nil {
 		defer response.Body.Close()
 	}
@@ -186,11 +183,7 @@ func (rpc *FlashbotsRPC) CallWithFlashbotsSignature(method string, privKey *ecds
 	for k, v := range rpc.Headers {
 		req.Header.Add(k, v)
 	}
-	httpClient := &http.Client{
-		Timeout: rpc.Timeout,
-	}
-
-	response, err := httpClient.Do(req)
+	response, err := rpc.client.Do(req)
 	if response != nil {
 		defer response.Body.Close()
 	}
