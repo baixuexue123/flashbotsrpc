@@ -65,8 +65,10 @@ func New(url string, options ...func(rpc *FlashbotsRPC)) *FlashbotsRPC {
 	for _, option := range options {
 		option(rpc)
 	}
-	rpc.client = &http.Client{
-		Timeout: rpc.Timeout,
+	if rpc.client == nil {
+		rpc.client = &http.Client{
+			Timeout: rpc.Timeout,
+		}
 	}
 	return rpc
 }
